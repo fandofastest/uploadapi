@@ -1,0 +1,498 @@
+{
+  "info": {
+    "_postman_id": "7f1e9a32-7e46-4ff7-a1b6-5c6c0c4f3c2d",
+    "name": "Cloud File API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "API untuk Cloud File Hosting Multi-User"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "description": "Endpoint untuk autentikasi dan manajemen user",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"pengguna\",\n  \"email\": \"pengguna@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Registrasi pengguna baru"
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"pengguna@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Login pengguna"
+          }
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/me",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "me"
+              ]
+            },
+            "description": "Mendapatkan profil pengguna yang sedang login"
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"pengguna_baru\",\n  \"email\": \"pengguna_baru@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/update-profile",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "update-profile"
+              ]
+            },
+            "description": "Update profil pengguna"
+          }
+        },
+        {
+          "name": "Update Password",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"password123\",\n  \"newPassword\": \"password_baru123\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/auth/update-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "update-password"
+              ]
+            },
+            "description": "Update password pengguna"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Files",
+      "description": "Endpoint untuk manajemen file",
+      "item": [
+        {
+          "name": "Upload File",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "isPublic",
+                  "value": "true",
+                  "type": "text",
+                  "description": "Set file sebagai publik (true/false)"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/api/files/upload",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "files",
+                "upload"
+              ]
+            },
+            "description": "Upload file baru dengan opsi untuk mengatur visibilitas publik. Mengembalikan link akses langsung jika file publik."
+          }
+        },
+        {
+          "name": "Get My Files",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/files/my-files",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "files",
+                "my-files"
+              ]
+            },
+            "description": "Mendapatkan daftar file milik pengguna"
+          }
+        },
+        {
+          "name": "Get File By ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/files/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "files",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID file yang ingin dilihat"
+                }
+              ]
+            },
+            "description": "Mendapatkan detail file berdasarkan ID"
+          }
+        },
+        {
+          "name": "Download File",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/files/download/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "files",
+                "download",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID file yang ingin didownload"
+                }
+              ]
+            },
+            "description": "Download file berdasarkan ID"
+          }
+        },
+        {
+          "name": "Update File",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"originalname\": \"nama_file_baru.pdf\",\n  \"isPublic\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/files/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "files",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID file yang ingin diupdate"
+                }
+              ]
+            },
+            "description": "Update nama atau visibilitas file"
+          }
+        },
+        {
+          "name": "Delete File",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/files/:id",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "files",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID file yang ingin dihapus"
+                }
+              ]
+            },
+            "description": "Menghapus file berdasarkan ID"
+          }
+        },
+        {
+          "name": "Share File",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"id_user_tujuan\",\n  \"permission\": \"read\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/files/:id/share",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "files",
+                ":id",
+                "share"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID file yang ingin dibagikan"
+                }
+              ]
+            },
+            "description": "Membagikan file dengan pengguna lain"
+          }
+        },
+        {
+          "name": "Unshare File",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/files/:id/share/:userId",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "files",
+                ":id",
+                "share",
+                ":userId"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "",
+                  "description": "ID file"
+                },
+                {
+                  "key": "userId",
+                  "value": "",
+                  "description": "ID pengguna yang akan dihapus aksesnya"
+                }
+              ]
+            },
+            "description": "Membatalkan berbagi file dengan pengguna"
+          }
+        },
+        {
+          "name": "Get Shared With Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/files/shared/with-me",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "files",
+                "shared",
+                "with-me"
+              ]
+            },
+            "description": "Mendapatkan daftar file yang dibagikan dengan pengguna"
+          }
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    }
+  ]
+} 
